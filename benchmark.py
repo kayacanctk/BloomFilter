@@ -2,21 +2,18 @@ import time
 import random
 import urllib.request
 import os
+import json
 from bloom_filter import BloomFilter
 
 # 1. NOMINAL DATA (Unstructured Text)
-def get_common_english_words(limit):
-    """Downloads a list of the most common English words (Nominal Text Data)."""
-    file_path = "common_english.txt"
-    if not os.path.exists(file_path):
-        print("Downloading Nominal Data (Common English Words)...")
-        url = "https://raw.githubusercontent.com/frekwencja/most-common-words-multilingual/main/data/wordfrequency.info/en.txt"
-        urllib.request.urlretrieve(url, file_path)
-    
-    with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
-        words = f.read().splitlines()
-    random.shuffle(words) 
-    return words[:limit]
+
+
+def load_word_dataset(file_path):
+    with open(file_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    word_list = list(data.keys())
+    actual_limit = min(limit, len(word_list))
+    return word_list[:actual_limit]
 
 def generate_dna_sequences(limit, length=20):
     """Generates synthetic DNA sequences (Structured Nominal Data)."""
@@ -67,6 +64,6 @@ if __name__ == "__main__":
     nominal_pattern_data = generate_dna_sequences(MAX_LIMIT)
     numerical_data = generate_numerical_data(MAX_LIMIT)
     
-    run_benchmark(nominal_text_data, "Nominal Data (Common English)")
+    run_benchmark(nominal_text_data, "Nominal Data (English Words)")
     run_benchmark(nominal_pattern_data, "Nominal Data (DNA Sequences)")
     run_benchmark(numerical_data, "Numerical Data (Random IDs)")
