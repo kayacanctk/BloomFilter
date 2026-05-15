@@ -1,0 +1,38 @@
+SLURM_JOB_ID: 66702531
+SLURM_JOB_USER: vsc38878
+SLURM_JOB_ACCOUNT: lp_h_ds_students
+SLURM_JOB_NAME: bloom_filter
+SLURM_CLUSTER_NAME: wice
+SLURM_JOB_PARTITION: batch
+SLURM_NNODES: 1
+SLURM_NODELIST: s28c11n1
+SLURM_JOB_CPUS_PER_NODE: 1
+Date: Fri May 15 23:42:18 CEST 2026
+Walltime: 00-00:15:00
+========================================================================
+Generating 200000 nominal data points (DNA sequences)...
+Generating 200000 numerical data points (Random IDs)...
+
+=============================================
+  STARTING BENCHMARK: NOMINAL DATA (ENGLISH WORDS)
+=============================================
+Size: 10000   | Insert: 0.0486 sec | Search: 0.0482 sec
+Size: 50000   | Insert: 0.2461 sec | Search: 0.2443 sec
+Size: 100000  | Insert: 0.4970 sec | Search: 0.4904 sec
+Size: 200000  | Insert: 1.0127 sec | Search: 1.0708 sec
+
+=============================================
+  STARTING BENCHMARK: NOMINAL DATA (DNA SEQUENCES)
+=============================================
+Size: 10000   | Insert: 0.0506 sec | Search: 0.0504 sec
+Size: 50000   | Insert: 0.2647 sec | Search: 0.2512 sec
+Size: 100000  | Insert: 0.4964 sec | Search: 0.4898 sec
+Size: 200000  | Insert: 1.0107 sec | Search: 1.0095 sec
+
+=============================================
+  STARTING BENCHMARK: NUMERICAL DATA (RANDOM IDS)
+=============================================
+Size: 10000   | Insert: 0.0512 sec | Search: 0.0508 sec
+Size: 50000   | Insert: 0.2657 sec | Search: 0.2457 sec
+Size: 100000  | Insert: 0.5332 sec | Search: 0.5134 sec
+Size: 200000  | Insert: 1.0043 sec | Search: 1.0033 sec
