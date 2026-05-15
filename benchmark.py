@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
     MAX_LIMIT = 200000
     
-    nominal_text_data = get_common_english_words(MAX_LIMIT)
+    nominal_text_data = load_word_dataset('words_dictionary.json', MAX_LIMIT)
     nominal_pattern_data = generate_dna_sequences(MAX_LIMIT)
     numerical_data = generate_numerical_data(MAX_LIMIT)
     
