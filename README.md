@@ -34,6 +34,7 @@ E.g.:
 #SBATCH --time=00:15:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1`
+
 5. Submit it to the HPC queue:
 
 E.g:`sbatch submit_job.sh`
