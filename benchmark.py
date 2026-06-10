@@ -139,7 +139,7 @@ def plot_false_positive(rows, n_design, fp_rate, m, k):
     plt.legend()
     plt.grid(alpha=0.3)
     plt.tight_layout()
-    plt.savefig("experiment7_fpr.png", dpi=150)
+    plt.savefig("fpr.png", dpi=150)
     plt.close()
  
  
@@ -153,7 +153,7 @@ def plot_compression(by_p, by_n):
     ax2.set(title="Filter size vs n (p=0.05)", xlabel="Number of words", ylabel="Size (KB)")
     ax2.grid(alpha=0.3)
     fig.tight_layout()
-    fig.savefig("experiment8_compression.png", dpi=150)
+    fig.savefig("compression.png", dpi=150)
     plt.close(fig)
  
  
