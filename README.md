@@ -62,8 +62,14 @@ The job script (`hpc_job.sh`):
 #SBATCH --output=benchmark_hpc_output.txt
 
 echo "Starting HPC Benchmark on WICE..."
+ 
 module load Python
+ 
+pip install --user matplotlib
+ 
 python benchmark.py
+python experiments.py
+ 
 echo "HPC Benchmark completed. Results saved."
 ```
 
