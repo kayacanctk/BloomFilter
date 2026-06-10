@@ -52,6 +52,10 @@ class BloomFilter:
                 return False
         return True
 
+    def bits_set(self) -> int:
+        """Number of bits currently set to True (used for fill ratio / analysis)."""
+        return sum(self.bit_array)
+
     def _get_size(self, n, p) -> int:
         m = -(n * math.log(p)) / (math.log(2) ** 2)
         return int(m)
