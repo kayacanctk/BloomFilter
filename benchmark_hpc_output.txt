@@ -1,0 +1,52 @@
+SLURM_JOB_ID: 60527705
+SLURM_JOB_USER: vsc38852
+SLURM_JOB_ACCOUNT: lp_h_ds_students
+SLURM_JOB_NAME: bloom_benchmark
+SLURM_CLUSTER_NAME: wice
+SLURM_JOB_PARTITION: batch
+SLURM_NNODES: 1
+SLURM_NODELIST: n28c20n3
+SLURM_JOB_CPUS_PER_NODE: 1
+Date: Wed Jun 10 23:27:30 CEST 2026
+Walltime: 00-00:15:00
+========================================================================
+Starting HPC Benchmark on WICE...
+Collecting mmh3
+  Downloading mmh3-5.2.1-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (14 kB)
+Collecting bitarray
+  Downloading bitarray-3.8.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (34 kB)
+Downloading mmh3-5.2.1-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (103 kB)
+Downloading bitarray-3.8.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (342 kB)
+Installing collected packages: bitarray, mmh3
+
+Successfully installed bitarray-3.8.1 mmh3-5.2.1
+
+[notice] A new release of pip is available: 25.1.1 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+Generating 200000 nominal data points (DNA sequences)...
+Generating 200000 numerical data points (Random IDs)...
+
+=============================================
+  STARTING BENCHMARK: NOMINAL DATA (ENGLISH WORDS)
+=============================================
+Size: 10000   | Insert: 0.0464 sec | Search: 0.0466 sec
+Size: 50000   | Insert: 0.2332 sec | Search: 0.2350 sec
+Size: 100000  | Insert: 0.4630 sec | Search: 0.4721 sec
+Size: 200000  | Insert: 0.9410 sec | Search: 0.9597 sec
+
+=============================================
+  STARTING BENCHMARK: NOMINAL DATA (DNA SEQUENCES)
+=============================================
+Size: 10000   | Insert: 0.0451 sec | Search: 0.0455 sec
+Size: 50000   | Insert: 0.2279 sec | Search: 0.2302 sec
+Size: 100000  | Insert: 0.4616 sec | Search: 0.4672 sec
+Size: 200000  | Insert: 0.9300 sec | Search: 0.9365 sec
+
+=============================================
+  STARTING BENCHMARK: NUMERICAL DATA (RANDOM IDS)
+=============================================
+Size: 10000   | Insert: 0.0460 sec | Search: 0.0464 sec
+Size: 50000   | Insert: 0.2326 sec | Search: 0.2338 sec
+Size: 100000  | Insert: 0.4631 sec | Search: 0.4686 sec
+Size: 200000  | Insert: 0.9281 sec | Search: 0.9502 sec
+HPC Benchmark completed. Results saved.
