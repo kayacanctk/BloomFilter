@@ -13,8 +13,6 @@ echo "Starting HPC Benchmark on WICE..."
 
 module load Python
 
-pip install --user mmh3 bitarray
-
 python benchmark.py
 
 echo "HPC Benchmark completed. Results saved."
