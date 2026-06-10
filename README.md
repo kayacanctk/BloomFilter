@@ -1,59 +1,86 @@
 # BloomFilter_CDS_Project
-The purpose of this project is to implement a space-efficient probabilistic data structure of a bloom filter that checks if an item belongs to a list, using a small amount of computer memory. Namely, if it is not on the list, it will definitely not be on the list. However, if an item is mentioned to be in the list, there is still a small chance that it could be a False Positive.
+Bloom filter project tests whether an item is a member of a set using a small amount of memory. It guarantees no false negatives: if the filter reports that an item is not in the set, it is definitely not in the set. It allows a small, controlled rate of false positives: if the filter reports that an item is in the set, it may occasionally be wrong.
 
 ## Team Members
 * Sefa Kayacan Citak
 * Maryna Poberezhna
 
 ## Description
-The Bloom filter, a probability data structure used to determine if an entry is related to a set, is implemented in this repository. The project involves constructing the data structure from the beginning into a Python, assessing various hash function families, and using an HPC infrastructure to benchmark its performance (time and space complexity).
+This repository implements a Bloom filter using an object-oriented approach and benchmarks its performance on the VSC Wice HPC cluster. The data structure is built from scratch, with a family of k hash functions derived from hashlib.md5. The benchmark measures insert and search time across three different data profiles and increasing dataset sizes.
 
 ## Getting Started
 
 ### Project Structure
 * `bloom_filter.py`: The core implementation of the Bloom Filter data structure using optimized hash functions.
 * `benchmark.py`: The main testing script that generates synthetic data, loads external datasets, and measures performance metrics.
-* `job.sh`: The SLURM batch script configured for submitting the benchmark job to the **Wice** HPC cluster.
-* `words_dictionary.json`: The external dataset containing approximately 370,000 common English words used for nominal text data testing. *(Note: This file must be downloaded and placed in the root directory before running).*
+* `hpc_job.sh`: SLURM batch script for submitting the benchmark to the Wice cluster.
+* `benchmark_hpc_output.txt`: Captured output of the benchmark run on Wice.
+* `words_dictionary.json`: External dataset of ~370,000 English words used for the text benchmark. Must be present in the root directory before running (see Datasets)
 
 ### Datasets Evaluated
 The benchmarking suite tests the Bloom Filter against three distinct data profiles, scaling up to 200,000 items:
-1. **Nominal Data (Unstructured Text):** Real English words loaded from the JSON dictionary.
+1. **Nominal Data (Unstructured Text):** Real English words loaded from `words_dictionary.json`.
 2. **Nominal Data (Structured Patterns):** Synthetically generated 20-character DNA sequences (A, C, G, T).
-3. **Numerical Data:** Randomly generated 8-digit identification numbers (e.g., Bank IDs).
+3. **Numerical Data:** Random 8-digit integer IDs.
 
-### Dependencies
-Since this project runs on HPC supercomputer, it relies on an isolated environment to manage dependencies.
-* Platform Environment: Supercomputer Cluster
-* Environment Manager: Conda
-* Runtime Environment: Python 3.8+
-* Libraries and Modules: Math, Hashlib, Time, Random, JSON, Bloom_filter, BloomFilter
-* Dataset: words_dictionary.json
+`words_dictionary.json` is the common ~370k-word English dictionary (dwyl/english-words). Add the exact download link you used here so the dataset is reproducible.
 
-## Installing
-You can pull or transfer the program files into your target HPC.
-Either clone it directly into your designated space via 'git clone' or you can deploy the entire project architecture via 'scp' directly to your cluster directory.
-The first method is preferred if your cluster nodes maintain outbound internet clearance. Since it allows a supercomputer node to connect to the external internet.
+## Implementation Notes
+* **Hash family:** `k` hash functions are simulated by seeding the input with an index (`item_i`) before hashing with md5, then reducing modulo the bit-array size `m`.
+* **Sizing:** the bit-array size `m` and hash count `k` are derived from the expected item count `n` and the target false positive rate `p`:
+  * `m = -(n * ln p) / (ln 2)^2`
+  * `k = (m / n) * ln 2`
+* The target false positive rate used throughout the benchmark is `p = 0.05`.
 
+## Dependencies
+* **Runtime:** Python 3.13, loaded on Wice with `module load Python`.
+* **Standard library only:** `math`, `hashlib` (in `bloom_filter.py`); `time`, `random`, `json` (in `benchmark.py`).
+* No third-party packages are required by the current implementation.
+## Running on the HPC
 
-## Executing a program
-1. Log into the supercomputer node using terminal
-2. Initialise the Conda environment
-3. Clone the project from git
-4. Do a batch submission for a large MAX_LIM size
+1. Transfer the project into your VSC data/scratch directory, either with `git clone <repo-url>` (if the login node has outbound internet) or `scp`.
+2. Make sure `words_dictionary.json` is in the same directory as `benchmark.py`.
+3. (Optional) Edit `MAX_LIMIT` in `benchmark.py` to change the largest dataset size (default `200000`).
+4. Submit the job to the queue:
 
-E.g.:
-`#!/bin/bash -l
+```bash
+sbatch hpc_job.sh
+```
+
+The job script (`hpc_job.sh`):
+
+```bash
+#!/bin/bash -l
 #SBATCH --job-name=bloom_benchmark
 #SBATCH --account=lp_h_ds_students
 #SBATCH --cluster=wice
 #SBATCH --time=00:15:00
 #SBATCH --nodes=1
-#SBATCH --ntasks=1`
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=2G
+#SBATCH --output=benchmark_hpc_output.txt
 
-5. Submit it to the HPC queue:
+echo "Starting HPC Benchmark on WICE..."
+module load Python
+python benchmark.py
+echo "HPC Benchmark completed. Results saved."
+```
 
-E.g:`sbatch submit_job.sh`
+Results are written to `benchmark_hpc_output.txt`.
+
+## Results
+
+Benchmarks were run on Wice (1 node, 1 task, 1 CPU, 2 GB RAM) at a target false
+positive rate of `p = 0.05`. Times are in seconds.
+
+| Items   | Words insert | Words search | DNA insert | DNA search | IDs insert | IDs search |
+|---------|--------------|--------------|------------|------------|------------|------------|
+| 10,000  | 0.0464       | 0.0466       | 0.0451     | 0.0455     | 0.0460     | 0.0464     |
+| 50,000  | 0.2332       | 0.2350       | 0.2279     | 0.2302     | 0.2326     | 0.2338     |
+| 100,000 | 0.4630       | 0.4721       | 0.4616     | 0.4672     | 0.4631     | 0.4686     |
+| 200,000 | 0.9410       | 0.9597       | 0.9300     | 0.9365     | 0.9281     | 0.9502     |
+
 ## Conclusion
 
 The benchmark results from the Wice HPC cluster highlight the efficiency and stability of our custom Bloom Filter implementation.
