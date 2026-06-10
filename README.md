@@ -54,6 +54,15 @@ E.g.:
 5. Submit it to the HPC queue:
 
 E.g:`sbatch submit_job.sh`
+## Conclusion
+
+The benchmark results from the Wice HPC cluster highlight the efficiency and stability of our custom Bloom Filter implementation.
+
+* When testing our maximum capacity of 200,000 items, both insertion and search operations were completed in under a second (averaging around 0.94s and 0.95s, respectively). Most significant is the consideration of the time required for processing the data sets of varying size (10k, 50k, 100k, and 200k): the total processing time scales linearly, from approximately 0.046s to 0.94s. This indicates that the time complexity to process a single item is constant, $O(k)$, regardless of the number of items in the filter.
+
+* We also observed that the filter's performance is practically independent of the data structure. The execution times were almost identical whether the algorithm was hashing unstructured English words, 20-character DNA sequences, or numerical IDs.
+
+* In the end, our implementation turns out to be exactly what we expected: it is highly memory efficient and fast to deal with large data sets, and yields a small but controlled false positive rate of 5%, which is a significant improvement in data pipelines.
 
 ## Support
 For cluster configuration and scaling issues, please write a comment under a relevant pull request.
