@@ -15,7 +15,7 @@ This repository implements a Bloom filter using an object-oriented approach and 
 * `benchmark.py`: The main testing script that generates synthetic data, loads external datasets, and measures performance metrics.
 * `hpc_job.sh`: SLURM batch script for submitting the benchmark to the Wice cluster.
 * `benchmark_hpc_output.txt`: Captured output of the benchmark run on Wice.
-* `words_dictionary.json`: External dataset of ~370,000 English words used for the text benchmark. Must be present in the root directory before running (see Datasets)
+* `words_dictionary.json`: Dataset of ~370,000 English words used for the text benchmark. Included in the repository; keep it in the same directory as `benchmark.py`.
 
 ### Datasets Evaluated
 The benchmarking suite tests the Bloom Filter against three distinct data profiles, scaling up to 200,000 items:
