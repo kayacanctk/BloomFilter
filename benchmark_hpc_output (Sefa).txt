@@ -1,0 +1,106 @@
+SLURM_JOB_ID: 60532994
+SLURM_JOB_USER: vsc38852
+SLURM_JOB_ACCOUNT: lp_h_ds_students
+SLURM_JOB_NAME: bloom_benchmark
+SLURM_CLUSTER_NAME: wice
+SLURM_JOB_PARTITION: batch
+SLURM_NNODES: 1
+SLURM_NODELIST: s28c11n1
+SLURM_JOB_CPUS_PER_NODE: 1
+Date: Thu Jun 11 23:13:21 CEST 2026
+Walltime: 00-00:15:00
+========================================================================
+Starting HPC Benchmark on WICE...
+Requirement already satisfied: matplotlib in /user/leuven/388/vsc38852/.local/lib/python3.13/site-packages (3.10.9)
+Requirement already satisfied: contourpy>=1.0.1 in /user/leuven/388/vsc38852/.local/lib/python3.13/site-packages (from matplotlib) (1.3.3)
+Requirement already satisfied: cycler>=0.10 in /user/leuven/388/vsc38852/.local/lib/python3.13/site-packages (from matplotlib) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in /user/leuven/388/vsc38852/.local/lib/python3.13/site-packages (from matplotlib) (4.63.0)
+Requirement already satisfied: kiwisolver>=1.3.1 in /user/leuven/388/vsc38852/.local/lib/python3.13/site-packages (from matplotlib) (1.5.0)
+Requirement already satisfied: numpy>=1.23 in /user/leuven/388/vsc38852/.local/lib/python3.13/site-packages (from matplotlib) (2.4.6)
+Requirement already satisfied: packaging>=20.0 in /apps/leuven/rocky9/icelake/2025b/software/Python/3.13.5-GCCcore-14.3.0/lib/python3.13/site-packages (from matplotlib) (25.0)
+Requirement already satisfied: pillow>=8 in /user/leuven/388/vsc38852/.local/lib/python3.13/site-packages (from matplotlib) (12.2.0)
+Requirement already satisfied: pyparsing>=3 in /user/leuven/388/vsc38852/.local/lib/python3.13/site-packages (from matplotlib) (3.3.2)
+Requirement already satisfied: python-dateutil>=2.7 in /user/leuven/388/vsc38852/.local/lib/python3.13/site-packages (from matplotlib) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in /user/leuven/388/vsc38852/.local/lib/python3.13/site-packages (from python-dateutil>=2.7->matplotlib) (1.17.0)
+
+[notice] A new release of pip is available: 25.1.1 -> 26.1.2
+[notice] To update, run: pip install --upgrade pip
+Generating 200000 DNA sequences...
+Generating 200000 numerical IDs...
+
+=============================================
+  NOMINAL DATA (ENGLISH WORDS)
+=============================================
+Size: 10000   | Insert: 0.0410 sec | Search: 0.0417 sec
+Size: 50000   | Insert: 0.2097 sec | Search: 0.2111 sec
+Size: 100000  | Insert: 0.4243 sec | Search: 0.4299 sec
+Size: 200000  | Insert: 0.8564 sec | Search: 0.8792 sec
+
+=============================================
+  NOMINAL DATA (DNA SEQUENCES)
+=============================================
+Size: 10000   | Insert: 0.0401 sec | Search: 0.0404 sec
+Size: 50000   | Insert: 0.2029 sec | Search: 0.2052 sec
+Size: 100000  | Insert: 0.4112 sec | Search: 0.4198 sec
+Size: 200000  | Insert: 0.8310 sec | Search: 0.8514 sec
+
+=============================================
+  NUMERICAL DATA (RANDOM IDS)
+=============================================
+Size: 10000   | Insert: 0.0404 sec | Search: 0.0409 sec
+Size: 50000   | Insert: 0.2155 sec | Search: 0.2097 sec
+Size: 100000  | Insert: 0.4165 sec | Search: 0.4282 sec
+Size: 200000  | Insert: 0.8386 sec | Search: 0.8701 sec
+
+Experiment 7 - filter built for 50000 words, p=0.05 (m=311761, k=4)
+inserted   5000: measured 0.0000 | expected 0.0000
+inserted  10000: measured 0.0001 | expected 0.0002
+inserted  15000: measured 0.0006 | expected 0.0009
+inserted  20000: measured 0.0023 | expected 0.0026
+inserted  25000: measured 0.0053 | expected 0.0057
+inserted  30000: measured 0.0107 | expected 0.0104
+inserted  35000: measured 0.0187 | expected 0.0171
+inserted  40000: measured 0.0285 | expected 0.0260
+inserted  45000: measured 0.0392 | expected 0.0370
+inserted  50000: measured 0.0549 | expected 0.0503
+inserted  55000: measured 0.0701 | expected 0.0657
+inserted  60000: measured 0.0882 | expected 0.0831
+inserted  65000: measured 0.1057 | expected 0.1024
+inserted  70000: measured 0.1258 | expected 0.1234
+inserted  75000: measured 0.1485 | expected 0.1458
+inserted  80000: measured 0.1722 | expected 0.1696
+inserted  85000: measured 0.1963 | expected 0.1944
+inserted  90000: measured 0.2227 | expected 0.2200
+inserted  95000: measured 0.2492 | expected 0.2462
+inserted 100000: measured 0.2785 | expected 0.2730
+inserted 105000: measured 0.3029 | expected 0.2999
+inserted 110000: measured 0.3308 | expected 0.3270
+inserted 115000: measured 0.3590 | expected 0.3540
+inserted 120000: measured 0.3878 | expected 0.3808
+inserted 125000: measured 0.4133 | expected 0.4073
+inserted 130000: measured 0.4391 | expected 0.4334
+inserted 135000: measured 0.4646 | expected 0.4590
+inserted 140000: measured 0.4890 | expected 0.4840
+inserted 145000: measured 0.5137 | expected 0.5084
+inserted 150000: measured 0.5367 | expected 0.5320
+inserted 155000: measured 0.5599 | expected 0.5550
+inserted 160000: measured 0.5813 | expected 0.5772
+inserted 165000: measured 0.6005 | expected 0.5986
+inserted 170000: measured 0.6192 | expected 0.6193
+inserted 175000: measured 0.6390 | expected 0.6391
+inserted 180000: measured 0.6572 | expected 0.6581
+inserted 185000: measured 0.6755 | expected 0.6763
+inserted 190000: measured 0.6920 | expected 0.6938
+inserted 195000: measured 0.7093 | expected 0.7104
+inserted 200000: measured 0.7245 | expected 0.7263
+p=0.001: 14.38 bits/word, 4.5x smaller than a 64-bit key
+p=0.005: 11.03 bits/word, 5.8x smaller than a 64-bit key
+p=0.01: 9.59 bits/word, 6.7x smaller than a 64-bit key
+p=0.05: 6.24 bits/word, 10.3x smaller than a 64-bit key
+p=0.1: 4.79 bits/word, 13.4x smaller than a 64-bit key
+p=0.25: 2.89 bits/word, 22.2x smaller than a 64-bit key
+n=10000: 62352 bits, 6.24 bits/word, 7.6 KB
+n=50000: 311761 bits, 6.24 bits/word, 38.1 KB
+n=100000: 623522 bits, 6.24 bits/word, 76.1 KB
+n=200000: 1247044 bits, 6.24 bits/word, 152.2 KB
+HPC Benchmark completed. Results saved.
