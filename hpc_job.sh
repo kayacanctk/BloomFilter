@@ -16,6 +16,5 @@ module load Python
 pip install --user matplotlib
  
 python benchmark.py
-python experiments.py
  
 echo "HPC Benchmark completed. Results saved."
