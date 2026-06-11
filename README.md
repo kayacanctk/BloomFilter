@@ -15,6 +15,9 @@ This repository implements a Bloom filter using an object-oriented approach and 
 * `benchmark.py`: The main testing script that generates synthetic data, loads external datasets, and measures performance metrics.
 * `hpc_job.sh`: SLURM batch script for submitting the benchmark to the Wice cluster.
 * `benchmark_hpc_output.txt`: Captured output of the benchmark run on Wice.
+*  `benchmark_timing.png`: Insert and search time vs number of items, for all three datasets.
+*  `fpr.png`: Measured vs theoretical false positive rate as words are inserted.
+*  `compression.png`: Bits per word vs `p`, and filter size vs `n`.
 * `words_dictionary.json`: Dataset of ~370,000 English words used for the text benchmark. Included in the repository; keep it in the same directory as `benchmark.py`.
 
 ### Datasets Evaluated
@@ -35,7 +38,7 @@ The benchmarking suite tests the Bloom Filter against three distinct data profil
 ## Dependencies
 * **Runtime:** Python 3.13, loaded on Wice with `module load Python`.
 * **Standard library only:** `math`, `hashlib` (in `bloom_filter.py`); `time`, `random`, `json` (in `benchmark.py`).
-* No third-party packages are required by the current implementation.
+* **Third-party:** `matplotlib`, used by `benchmark.py` to draw the plots. Installed on Wice with `pip install --user matplotlib`.
 ## Running on the HPC
 
 1. Transfer the project into your VSC data/scratch directory, either with `git clone <repo-url>` (if the login node has outbound internet) or `scp`.
@@ -87,15 +90,26 @@ positive rate of `p = 0.05`. Times are in seconds.
 | 100,000 | 0.4630       | 0.4721       | 0.4616     | 0.4672     | 0.4631     | 0.4686     |
 | 200,000 | 0.9410       | 0.9597       | 0.9300     | 0.9365     | 0.9281     | 0.9502     |
 
-## Conclusion
+![...](benchmark_timing.png)
 
-The benchmark results from the Wice HPC cluster highlight the efficiency and stability of our custom Bloom Filter implementation.
+We also looked at how the false positive rate behaves as the filter fills up. We built one filter for an expected 50,000 words at `p = 0.05`, then kept inserting up to 200,000 words while querying a set of words that were never inserted, so every hit is a false positive. While we stayed within the designed capacity the rate held close to the 0.05 target, but once the filter was overfilled it climbed steeply, reaching about 0.72 at 200,000 words (four times capacity). The measured curve tracks the theoretical `(1 - e^(-k*n/m))^k` almost exactly.
 
-* When testing our maximum capacity of 200,000 items, both insertion and search operations were completed in under a second (averaging around 0.94s and 0.95s, respectively). Most significant is the consideration of the time required for processing the data sets of varying size (10k, 50k, 100k, and 200k): the total processing time scales linearly, from approximately 0.046s to 0.94s. This indicates that the time complexity to process a single item is constant, $O(k)$, regardless of the number of items in the filter.
+![...](fpr.png)
 
-* We also observed that the filter's performance is practically independent of the data structure. The execution times were almost identical whether the algorithm was hashing unstructured English words, 20-character DNA sequences, or numerical IDs.
+Finally we checked the compression rate. The number of bits per word, `m / n`,
+depends only on the target false positive rate, not on how many words are stored:
+about 6.2 bits per word at `p = 0.05`, roughly 10 times smaller than storing a
+64-bit key per item. A stricter `p = 0.001` raises it to about 14 bits per word,
+while a looser `p = 0.25` drops it below 3. For a fixed `p`, the total filter
+size grows linearly with `n`, from about 7.6 KB at 10,000 words to 152 KB at
+200,000.
+![...](compression.png)
 
-* In the end, our implementation turns out to be exactly what we expected: it is highly memory efficient and fast to deal with large data sets, and yields a small but controlled false positive rate of 5%, which is a significant improvement in data pipelines.
+## Conclusions
+
+The filter did pretty much what the theory says it should. Each insert or search only touches `k` bits, so a single operation costs the same no matter how full the filter is, and the total time grew linearly with the number of items (from about 0.046 s at 10,000 to 0.94 s at 200,000). That makes operations `O(k)` per item and `O(n * k)` overall. Memory follows the same pattern: the filter is just one bit array of size `m`, so space is `O(m)`, linear in the expected number of items and independent of how long each item is. The type of data barely mattered either; words, DNA, and IDs all ran at the same speed.
+
+The two parameter experiments were the most telling. The false positive rate only held to the 0.05 target while we stayed within the filter's designed capacity; pushing past it sent the rate up sharply, beyond 0.7 at four times the intended load, so sizing the filter for the real number of items is what keeps it honest. The space cost, meanwhile, depends only on the false positive rate we ask for, about 6.2 bits per word at `p = 0.05` and roughly ten times smaller than storing a full key, trading more bits for fewer mistakes. Together these confirm the filter is exactly the fast, compact, and tunable structure it promises to be.
 
 ## Support
 For cluster configuration and scaling issues, please write a comment under a relevant pull request.
