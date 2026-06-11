@@ -102,6 +102,7 @@ about 6.2 bits per word at `p = 0.05`, roughly 10 times smaller than storing a
 while a looser `p = 0.25` drops it below 3. For a fixed `p`, the total filter
 size grows linearly with `n`, from about 7.6 KB at 10,000 words to 152 KB at
 200,000.
+
 ![...](compression.png)
 
 ## Conclusions
