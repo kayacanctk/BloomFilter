@@ -18,7 +18,7 @@ This repository implements a Bloom filter using an object-oriented approach and 
 *  `benchmark_timing.png`: Insert and search time vs number of items, for all three datasets.
 *  `fpr.png`: Measured vs theoretical false positive rate as words are inserted.
 *  `compression.png`: Bits per word vs `p`, and filter size vs `n`.
-* `words_dictionary.json`: Dataset of ~370,000 English words used for the text benchmark. Included in the repository; keep it in the same directory as `benchmark.py`.
+* `words_dictionary.json`: words_dictionary.json is committed directly to this repository and is also present in the HPC working directory, so no separate download step is required.
 
 ### Datasets Evaluated
 The benchmarking suite tests the Bloom Filter against three distinct data profiles, scaling up to 200,000 items:
