@@ -7,6 +7,7 @@ import math
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import numpy as np
 from bloom_filter import BloomFilter
 
 
@@ -157,6 +158,29 @@ def plot_compression(by_p, by_n):
     plt.close(fig)
  
  
+    
+def plot_length_to_time(bf, dataset, sample_size=10000):
+    length=[]
+    timeline=[]
+    
+    for word in dataset[:sample_size]:
+        start=time.perf_counter()
+        bf.add(word)
+        end=time.perf_counter()
+        length.append(len(word))
+        timeline.append((end-start)*1e6)
+    
+    plt.figure(figsize=(10,6))
+    plt.scatter(length, timeline, alpha=0.4, color='blue', s=10)
+    coef=np.polyfit(length, timeline, 1)
+    poly=np.poly1d(coef)
+    plt.plot(length, poly(length), color='orange', linewidth=2, label=f'Trend: y= {coef[0]:.4f}x+{coef[1]:.2f}')
+    plt.title('How string length influences hash time')
+    plt.xlabel('Word length in characters')
+    plt.ylabel('Adding time in microsec')
+    plt.legend()
+    plt.savefig('length_vs_time.png')
+    plt.close()
 if __name__ == "__main__":
     MAX_LIMIT = 200000
  
@@ -177,3 +201,7 @@ if __name__ == "__main__":
  
     by_p, by_n = compression_experiment()
     plot_compression(by_p, by_n)
+    
+    test_bf=BloomFilter(expected_items=200000, fp_rate=0.05)
+    plot_length_to_time(test_bf, words, sample_size=20000)
+    print('The visualisations have been processed')
