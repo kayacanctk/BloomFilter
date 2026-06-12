@@ -117,11 +117,21 @@ from about 7.6 KB at 10,000 words to 152 KB at 200,000.
 
 ![...](compression.png)
 
+Results of our computational experiment were confirmed in the 'plot_length_to_time' function once again. 
+There, we have proven that a number of symbols in a word barely influences an insertion time,
+since an orange line laid on the x-axis is close to being perfectly horizontal. 
+Furthermore, dark blue bands are consentrated toward the bottom of the chart, 
+demonstrating extremely similar baseline speed independent of length.
+An outlier at x=10 can be attributed to a system jittering. 
+
+![...](length_vs_time.png)
+
 ## Conclusions
 
 The filter did what the theory says it should. Each insert or search only touches `k` bits, 
 so a single operation costs the same no matter how full the filter is, 
-and the total time grew linearly with the number of items (from about 0.046 s at 10,000 to 0.94 s at 200,000). 
+Total time grew with the number of items in a linear manner(from about 0.046 s at 10,000 to 0.94 s at 200,000)
+and least-squares regression line had a close to zero slope(last visualisation). 
 That makes operations `O(k)` per item and `O(n * k)` overall. 
 Memory follows the same pattern: the filter is just one bit array of size `m`, so space is `O(m)`, 
 linear in the expected number of items and independent of how long each item is. 
