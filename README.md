@@ -23,6 +23,7 @@ The benchmark measures 'insert' and 'search' time across three different data pr
 *  `benchmark_timing.png`: Insert and search time vs number of items, for all three datasets.
 *  `fpr.png`: Measured vs theoretical false positive rate as words are inserted.
 *  `compression.png`: Bits per word vs `p`, and filter size vs `n`.
+*  `length_vs_time.png`: Time vs string length relationship exploration.
 * `words_dictionary.json`: is committed directly to this repository and is also present in the HPC working directory,
   so no separate download step is required.
 * `bloom_filter_demo.ipynb`: Jupyter notebook demonstrating basic usage, correctness checks and hash distribution test.
@@ -46,7 +47,7 @@ then reducing modulo the bit-array size `m`.
 
 ## Dependencies
 * **Runtime:** Python 3.13, loaded on Wice with `module load Python`.
-* **Standard library only:** `math`, `hashlib` (in `bloom_filter.py`); `time`, `random`, `json` (in `benchmark.py`).
+* **Standard library only:** `math`, `hashlib` (in `bloom_filter.py`); `time`, `random`, `json` (in `benchmark.py`), `numpy` (in `benchmark.py`).
 * **Third-party:** `matplotlib`, used by `benchmark.py` to draw plots. Installed on Wice with `pip install --user matplotlib`.
 ## Running on the HPC
 
