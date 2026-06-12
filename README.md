@@ -25,6 +25,7 @@ The benchmark measures 'insert' and 'search' time across three different data pr
 *  `compression.png`: Bits per word vs `p`, and filter size vs `n`.
 * `words_dictionary.json`: is committed directly to this repository and is also present in the HPC working directory,
   so no separate download step is required.
+* `bloom_filter_demo.ipynb`: Jupyter notebook demonstrating basic usage, correctness checks and hash distribution test.
 
 ### Datasets Evaluated
 The benchmarking suite tests the Bloom Filter against three distinct data profiles, scaling up to 200,000 items:
